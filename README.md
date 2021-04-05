@@ -1,8 +1,42 @@
 # CsvSerializer
-Short description and motivation.
+Adds easy CSV generation functionality to `ActiveRecord`.
 
 ## Usage
 How to use my plugin.
+
+Suppose Person model is defined.
+```ruby
+
+
+```
+
+`to_csv` returns csv as string.
+
+```ruby
+Person.to_csv
+# => id,name,age,tall,weight,created_at,updated_at
+#    1,sample1,1,128,34,2020-01-01 10:02:39 UTC,2020-01-01 11:02:39 UTC
+#    2,sample2,2,130,32,2020-01-01 12:02:39 UTC,2020-01-01 14:02:39 UTC
+````
+
+If attribute names is passed, CSV string only contains the specified attributes will be returned.
+```ruby
+Person.to_csv(:id, :name)
+# => id,name
+#    1,sample1
+#    2,sample2
+```
+
+Containing the value gained by processing the record is supported.
+```ruby
+Person.to_csv(
+  "long name": ->(user) { user.name * 2 },
+  "short name": ->(user) { user.name[-2..] }
+)
+# => long name,short name
+#    sample1sample1,e1
+#    sample2sample2,e2
+```
 
 ## Installation
 Add this line to your application's Gemfile:
