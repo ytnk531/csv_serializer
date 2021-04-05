@@ -2,8 +2,6 @@
 Adds easy CSV generation functionality to `ActiveRecord`.
 
 ## Usage
-How to use my plugin.
-
 Suppose Person model is defined.
 ```ruby
 class Person < ApplicationRecord
