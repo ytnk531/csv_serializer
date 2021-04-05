@@ -6,8 +6,17 @@ How to use my plugin.
 
 Suppose Person model is defined.
 ```ruby
-
-
+class Person < ApplicationRecord
+  # In schema.rb, columns are defined as below definition.
+  # create_table "people", force: :cascade do |t|
+  #   t.string "name"
+  #   t.integer "age"
+  #   t.integer "tall"
+  #   t.integer "weight"
+  #   t.datetime "created_at", precision: 6, null: false
+  #   t.datetime "updated_at", precision: 6, null: false
+  # end
+end
 ```
 
 `to_csv` returns csv as string.
