@@ -55,6 +55,19 @@ class CsvSerializerTest < ActiveSupport::TestCase
     )
   end
 
+  test 'it outputs csv from definition object' do
+    Person.create!(id: 1, name: 'sample1')
+
+    expected = <<~CSV
+      Long name,Long name
+      sample1sample1,sample1sample1sample1
+    CSV
+    assert_equal expected, Person.all.to_csv(
+      ["long name", ->(user) { user.name * 2 }],
+      ["long name", ->(user) { user.name * 3 }]
+    )
+  end
+
   test 'it translates column name' do
     Person.create!(id: 1, name: 'sample1')
     Person.create!(id: 2, name: 'sample2')
@@ -66,6 +79,7 @@ class CsvSerializerTest < ActiveSupport::TestCase
       sample2
     CSV
     assert_equal expected, Person.all.to_csv(:name)
+    I18n.backend.store_translations(:en, activerecord: { attributes: { person: { name: nil } } })
   end
 
   test 'it outputs csv2' do

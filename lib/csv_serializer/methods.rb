@@ -15,9 +15,17 @@ module CsvSerializer
       end
 
       def from_columns(columns)
-        columns = columns.presence || attribute_names
-        generate_csv(columns, columns) do
-          (_1.is_a?(Array) ? _1 : [_1])
+        if columns.blank? || columns.all?(Symbol)
+          columns = columns.presence || attribute_names.map(&:to_sym)
+          generate_csv(columns, columns) do
+            (_1.is_a?(Array) ? _1 : [_1])
+          end
+        else
+          generate_csv(columns.map(&:first), columns) do |row|
+            columns.map(&:last).map do |f|
+              f.call row
+            end
+          end
         end
       end
 
@@ -40,7 +48,7 @@ module CsvSerializer
       end
 
       def data_source(columns_or_functions)
-        if columns_or_functions.is_a?(Array)
+        if columns_or_functions.is_a?(Array) && columns_or_functions.all?(Symbol)
           all.pluck(*columns_or_functions)
         else
           all
