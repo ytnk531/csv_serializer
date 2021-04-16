@@ -1,8 +1,6 @@
 # frozen_string_literal: true
 
 require 'csv'
-require 'csv_serializer/function_serializer'
-require 'csv_serializer/pluck_serializer'
 
 module CsvSerializer
   module Method
@@ -10,11 +8,7 @@ module CsvSerializer
 
     class_methods do
       def to_csv(*columns, **definitions)
-        serializer = if definitions.present?
-                       FunctionSerializer.new(columns, definitions, self)
-                     else
-                       PluckSerializer.new(columns, self)
-                     end
+        serializer = Serializer.build(self, columns, definitions)
         serializer.serialize
       end
     end
