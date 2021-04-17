@@ -4,6 +4,14 @@ module CsvSerializer
   class Serializer
     attr_reader :definitions, :records
 
+    def self.build(records, definitions)
+      if definitions.is_a?(SymbolArrayDefinitions)
+        PluckSerializer.new(definitions, records)
+      else
+        FunctionSerializer.new(definitions, records)
+      end
+    end
+
     def initialize(definitions, records)
       @definitions = definitions
       @records = records
@@ -19,24 +27,5 @@ module CsvSerializer
       end
     end
 
-    def data_source(columns_or_functions)
-      if columns_or_functions.is_a?(Array) && columns_or_functions.all?(Symbol)
-        @records.all.pluck(*columns_or_functions)
-      else
-        @records.all
-      end
-    end
-
-    def self.build(records, array, hash)
-      if hash.blank?
-        if array.blank? || array.all?(Symbol)
-          CsvSerializer::PluckSerializer.new(array, records)
-        else
-          CsvSerializer::FunctionSerializer.new(array.to_h, records)
-        end
-      else
-        CsvSerializer::FunctionSerializer.new(hash, records)
-      end
-    end
   end
 end

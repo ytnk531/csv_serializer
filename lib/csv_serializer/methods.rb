@@ -7,8 +7,9 @@ module CsvSerializer
     extend ActiveSupport::Concern
 
     class_methods do
-      def to_csv(*columns, **definitions)
-        serializer = Serializer.build(self, columns, definitions)
+      def to_csv(*array, **hash)
+        definitions = Definitions.build(array, hash)
+        serializer = Serializer.build(self, definitions)
         serializer.serialize
       end
     end
