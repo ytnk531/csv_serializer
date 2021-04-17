@@ -45,6 +45,16 @@ Person.to_csv(
 #    sample2sample2,e2
 ```
 
+Same named columns can be specified with arrays of a column name and a producer function.
+```ruby
+Person.all.to_csv(
+  ["long name", ->(user) { user.name * 2 }],
+  ["long name", ->(user) { user.name * 3 }]
+)
+# => Long name,Long name
+#    sample1sample1,sample1sample1sample1
+```
+
 ## Installation
 Add this line to your application's Gemfile:
 
