@@ -12,6 +12,12 @@ module CsvSerializer
         serializer = Serializer.build(self, definitions)
         serializer.serialize
       end
+
+      def to_csv_file(*array, **hash)
+        definitions = Definitions.build(array, hash)
+        serializer = StreamSerializer.new(definitions,self)
+        serializer.serialize
+      end
     end
   end
 end

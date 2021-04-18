@@ -26,6 +26,5 @@ module CsvSerializer
         end
       end
     end
-
   end
 end
