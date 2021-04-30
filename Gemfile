@@ -6,6 +6,7 @@ gemspec
 
 group :development do
   gem 'sqlite3'
+  gem 'memory_profiler'
 end
 
 # To use a debugger
