@@ -1,4 +1,4 @@
-require 'objspace'
+require 'memory_profiler'
 
 module CsvSerializer
   class StreamSerializer < CsvSerializer::Serializer
@@ -11,16 +11,13 @@ module CsvSerializer
     end
 
     def generate_csv(header, columns_or_functions)
-      GC.start
       header = header.dup.map { records.human_attribute_name(_1) }
-      io = Tempfile.new
-      pp "gc:#{ObjectSpace.memsize_of_all}"
-      CSV(io) do |csv|
-        csv << header
-        data_source(columns_or_functions).each do |row|
-          csv << yield(row)
-        end
+      io = File.open("file.txt", "w")
+      io.write header.join
+      data_source(columns_or_functions).in_batches do |rows|
+        rows.each { io.write yield(_1).join }
       end
+      io.close
     end
 
     def data_source(_columns_or_functions)
