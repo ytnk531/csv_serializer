@@ -1,4 +1,4 @@
-class CsvSerializer::SymbolArrayDefinitions < CsvSerializer::Definitions
+class CsvSerializer::Definitions::SymbolArray < CsvSerializer::Definitions
   def column_names
     definitions
   end

@@ -1,13 +1,13 @@
 module CsvSerializer
   class Definitions
     def self.build(array, hash)
-      return SymbolArrayDefinitions.new([]) if array.blank? && hash.blank?
-      return FunctionHashDefinitions.new(hash) if array.blank?
+      return SymbolArray.new([]) if array.blank? && hash.blank?
+      return FunctionHash.new(hash) if array.blank?
 
       if array.blank? || array.all?(Symbol)
-        SymbolArrayDefinitions.new(array)
+        SymbolArray.new(array)
       else
-        FunctionArrayDefinitions.new(array)
+        FunctionArray.new(array)
       end
     end
 

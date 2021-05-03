@@ -5,7 +5,7 @@ module CsvSerializer
     attr_reader :definitions, :records
 
     def self.build(records, definitions)
-      if definitions.is_a?(SymbolArrayDefinitions)
+      if definitions.is_a?(Definitions::SymbolArray)
         PluckSerializer.new(definitions, records)
       else
         FunctionSerializer.new(definitions, records)
@@ -26,6 +26,5 @@ module CsvSerializer
         end
       end
     end
-
   end
 end
