@@ -1,4 +1,4 @@
-class CsvSerializer::Definitions::SymbolArray < CsvSerializer::Definitions
+class CsvSerializer::Definition::SymbolArray < CsvSerializer::Definition
   def column_names
     definitions
   end
@@ -17,9 +17,5 @@ class CsvSerializer::Definitions::SymbolArray < CsvSerializer::Definitions
 
   def target_records
     records.pluck(*column_names)
-  end
-
-  def none?
-    definitions.blank?
   end
 end

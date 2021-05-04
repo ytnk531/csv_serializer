@@ -6,7 +6,7 @@ module CsvSerializer
 
     class_methods do
       def to_csv(*array, **hash)
-        serializer = Definitions.build(array, hash, self).serializer
+        serializer = Definition.build(array, hash, self).serializer
         serializer.serialize
       end
     end
