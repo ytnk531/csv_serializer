@@ -1,12 +1,8 @@
 module CsvSerializer
-  class Definitions
-    class AllColumn < CsvSerializer::Definitions
+  class Definition
+    class AllColumn < CsvSerializer::Definition
       def column_names
         records.attribute_names
-      end
-
-      def process(record)
-        record
       end
 
       def target_records
@@ -15,6 +11,10 @@ module CsvSerializer
 
       def producers
         definitions.map(&:last)
+      end
+
+      def process(record)
+        record
       end
     end
   end

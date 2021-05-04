@@ -1,4 +1,4 @@
-class CsvSerializer::Definitions::FunctionHash < CsvSerializer::Definitions
+class CsvSerializer::Definition::FunctionHash < CsvSerializer::Definition
   def column_names
     definitions.keys
   end

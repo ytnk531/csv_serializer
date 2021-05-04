@@ -3,7 +3,7 @@
 require "test_helper"
 
 class CsvSerializerTest < ActiveSupport::TestCase
-  test "it builds concrete Serializer from definitions" do
+  test "it builds concrete Serializer from definition" do
     actual = CsvSerializer::Serializer.build(
       Person.all,
       CsvSerializer::FunctionArrayDefinitions.new([])

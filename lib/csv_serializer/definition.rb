@@ -1,5 +1,5 @@
 module CsvSerializer
-  class Definitions
+  class Definition
     attr_reader :records
 
     def self.build(array, hash, records)

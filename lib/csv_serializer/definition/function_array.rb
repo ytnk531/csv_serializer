@@ -1,5 +1,5 @@
 module CsvSerializer
-  class Definitions::FunctionArray < CsvSerializer::Definitions
+  class Definition::FunctionArray < CsvSerializer::Definition
     def column_names
       definitions.map(&:first)
     end
