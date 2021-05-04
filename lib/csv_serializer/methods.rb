@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module CsvSerializer
-  module Method
+  module Methods
     extend ActiveSupport::Concern
 
     class_methods do
