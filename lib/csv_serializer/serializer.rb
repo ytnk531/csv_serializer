@@ -10,17 +10,20 @@ module CsvSerializer
     end
 
     def serialize
-      generate_csv
-    end
-
-    def generate_csv
-      header = definitions.header
       CSV.generate do |csv|
-        csv << header
+        csv << definitions.header
         definitions.target_records.each do |record|
           csv << definitions.process(record)
         end
       end
     end
+
+    def serialize_to(io)
+      io << CSV.generate_line(definitions.header)
+      definitions.target_records.each do |record|
+        io << CSV.generate_line(definitions.process(record))
+      end
+    end
+
   end
 end

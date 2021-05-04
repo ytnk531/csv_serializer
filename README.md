@@ -55,6 +55,17 @@ Person.all.to_csv(
 #    sample1sample1,sample1sample1sample1
 ```
 
+### Output to files
+```ruby
+io = Tempfile.new
+Person.all.to_csv_stream(io)
+# Below lines are written to tempfile.
+# id,name,age,tall,weight,created_at,updated_at
+# 1,sample1,1,128,34,2020-01-01 10:02:39 UTC,2020-01-01 11:02:39 UTC
+# 2,sample2,2,130,32,2020-01-01 12:02:39 UTC,2020-01-01 14:02:39 UTC
+
+```
+
 ## Installation
 Add this line to your application's Gemfile:
 

@@ -83,12 +83,21 @@ class CsvSerializerTest < ActiveSupport::TestCase
   end
 
   test "it outputs csv2" do
-    Person.create
-    Person.create
+    Person.create!(id: 1, name: "sample1", tall: 128, weight: 34, created_at: "2020-1-1 10:02:39",
+                   updated_at: "2020-1-1 11:02:39")
+    Person.create!(id: 2, name: "sample2", tall: 130, weight: 32, created_at: "2020-1-1 12:02:39",
+                   updated_at: "2020-1-1 14:02:39")
 
     expected = <<~CSV
-      id, number
+      Id,Name,Age,Tall,Weight,Created at,Updated at
+      1,sample1,,128,34,2020-01-01 10:02:39 UTC,2020-01-01 11:02:39 UTC
+      2,sample2,,130,32,2020-01-01 12:02:39 UTC,2020-01-01 14:02:39 UTC
     CSV
-    assert_equal Tempfile.new, Person.all.to_csv_file
+
+    io = Tempfile.new
+    th = Person.all.to_csv_stream(io)
+    th.join
+    io.seek(0)
+    assert_equal expected, io.read
   end
 end

@@ -9,6 +9,13 @@ module CsvSerializer
         serializer = Definition.build(array, hash, self).serializer
         serializer.serialize
       end
+
+      def to_csv_stream(io, *array, **hash)
+        serializer = Definition.build(array, hash, self).serializer
+        Thread.new do
+          serializer.serialize_to(io)
+        end
+      end
     end
   end
 end
