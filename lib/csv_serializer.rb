@@ -8,10 +8,8 @@ require "csv_serializer/definition/function_array"
 require "csv_serializer/definition/symbol_array"
 require "csv_serializer/definition/function_hash"
 
-module CsvSerializer
-  # Your code goes here...
-end
+module CsvSerializer; end
 
 ActiveSupport.on_load(:active_record) do
-  include CsvSerializer::Method
+  include CsvSerializer::Methods
 end
