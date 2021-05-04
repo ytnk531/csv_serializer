@@ -18,5 +18,13 @@ module CsvSerializer
     def definitions
       @array_or_hash
     end
+
+    def serializer(records)
+      if instance_of?(SymbolArray)
+        Serializer::PluckSerializer.new(self, records)
+      else
+        Serializer::FunctionSerializer.new(self, records)
+      end
+    end
   end
 end

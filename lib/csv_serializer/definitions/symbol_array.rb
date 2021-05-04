@@ -10,4 +10,5 @@ class CsvSerializer::Definitions::SymbolArray < CsvSerializer::Definitions
   def none?
     definitions.blank?
   end
+
 end

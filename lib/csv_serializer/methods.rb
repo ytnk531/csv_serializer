@@ -8,8 +8,7 @@ module CsvSerializer
 
     class_methods do
       def to_csv(*array, **hash)
-        definitions = Definitions.build(array, hash)
-        serializer = Serializer.build(self, definitions)
+        serializer = Definitions.build(array, hash).serializer(self)
         serializer.serialize
       end
     end

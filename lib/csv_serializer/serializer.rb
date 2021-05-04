@@ -4,14 +4,6 @@ module CsvSerializer
   class Serializer
     attr_reader :definitions, :records
 
-    def self.build(records, definitions)
-      if definitions.is_a?(Definitions::SymbolArray)
-        PluckSerializer.new(definitions, records)
-      else
-        FunctionSerializer.new(definitions, records)
-      end
-    end
-
     def initialize(definitions, records)
       @definitions = definitions
       @records = records
@@ -21,7 +13,7 @@ module CsvSerializer
       header = header.dup.map { records.human_attribute_name(_1) }
       CSV.generate do |csv|
         csv << header
-        data_source(columns_or_functions).each do |row|
+        target_records(columns_or_functions).each do |row|
           csv << yield(row)
         end
       end

@@ -1,17 +1,16 @@
-require 'csv_serializer/serializer'
-class CsvSerializer::PluckSerializer < CsvSerializer::Serializer
-  def serialize
-    column_names = if definitions.none?
-                     records.attribute_names
-                   else
-                     definitions&.column_names
-                   end
-    generate_csv(column_names, column_names) do
-      [_1].flatten
-    end
-  end
+# frozen_string_literal: true
 
-  def data_source(definitions)
-    @records.all.pluck(*definitions)
+require 'csv_serializer/serializer'
+module CsvSerializer
+  class Serializer
+    class PluckSerializer < CsvSerializer::Serializer
+      def serialize
+        generate_csv(column_names, column_names)
+      end
+
+      def target_records(definitions)
+        @records.all.pluck(*definitions)
+      end
+    end
   end
 end
