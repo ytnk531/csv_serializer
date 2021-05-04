@@ -1,22 +1,38 @@
 module CsvSerializer
   class Definitions
-    def self.build(array, hash)
-      return SymbolArrayDefinitions.new([]) if array.blank? && hash.blank?
-      return FunctionHashDefinitions.new(hash) if array.blank?
+    attr_reader :records
 
-      if array.blank? || array.all?(Symbol)
-        SymbolArrayDefinitions.new(array)
+    def self.build(array, hash, records)
+      if array.blank? && hash.blank?
+        AllColumn.new(records)
+      elsif array.blank?
+        FunctionHash.new(records, hash)
+      elsif array.all?(Symbol)
+        SymbolArray.new(records, array)
       else
-        FunctionArrayDefinitions.new(array)
+        FunctionArray.new(records, array)
       end
     end
 
-    def initialize(array_or_hash)
+    def initialize(records, array_or_hash = nil)
+      @records = records
       @array_or_hash = array_or_hash
     end
 
     def definitions
       @array_or_hash
+    end
+
+    def serializer
+      Serializer.new(self)
+    end
+
+    def target_records
+      records.all
+    end
+
+    def header
+      column_names.map { records.human_attribute_name(_1) }
     end
   end
 end

@@ -1,9 +1,9 @@
 # frozen_string_literal: true
 
-require 'test_helper'
+require "test_helper"
 
 class CsvSerializerTest < ActiveSupport::TestCase
-  test 'it builds concrete Serializer from definitions' do
+  test "it builds concrete Serializer from definitions" do
     actual = CsvSerializer::Serializer.build(
       Person.all,
       CsvSerializer::FunctionArrayDefinitions.new([])

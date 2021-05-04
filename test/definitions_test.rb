@@ -1,7 +1,7 @@
-require 'test_helper'
+require "test_helper"
 
 class DefinitionsTest < ActiveSupport::TestCase
-  test 'it builds concrete Definitions from definitions' do
+  test "it builds concrete Definitions from definitions" do
     actual = CsvSerializer::Definitions.build(nil, {})
     assert_equal CsvSerializer::FunctionHashDefinitions, actual.class
 
