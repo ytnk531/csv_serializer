@@ -1,14 +1,12 @@
 # frozen_string_literal: true
 
-require 'csv'
-
 module CsvSerializer
   module Method
     extend ActiveSupport::Concern
 
     class_methods do
       def to_csv(*array, **hash)
-        serializer = Definitions.build(array, hash).serializer(self)
+        serializer = Definitions.build(array, hash, self).serializer
         serializer.serialize
       end
     end

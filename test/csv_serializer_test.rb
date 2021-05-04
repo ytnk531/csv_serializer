@@ -1,17 +1,17 @@
 # frozen_string_literal: true
 
-require 'test_helper'
+require "test_helper"
 
 class CsvSerializerTest < ActiveSupport::TestCase
-  test 'it has a version number' do
+  test "it has a version number" do
     assert CsvSerializer::VERSION
   end
 
-  test 'it outputs csv' do
-    Person.create!(id: 1, name: 'sample1', tall: 128, weight: 34, created_at: '2020-1-1 10:02:39',
-                   updated_at: '2020-1-1 11:02:39')
-    Person.create!(id: 2, name: 'sample2', tall: 130, weight: 32, created_at: '2020-1-1 12:02:39',
-                   updated_at: '2020-1-1 14:02:39')
+  test "it outputs csv" do
+    Person.create!(id: 1, name: "sample1", tall: 128, weight: 34, created_at: "2020-1-1 10:02:39",
+                   updated_at: "2020-1-1 11:02:39")
+    Person.create!(id: 2, name: "sample2", tall: 130, weight: 32, created_at: "2020-1-1 12:02:39",
+                   updated_at: "2020-1-1 14:02:39")
 
     expected = <<~CSV
       Id,Name,Age,Tall,Weight,Created at,Updated at
@@ -21,9 +21,9 @@ class CsvSerializerTest < ActiveSupport::TestCase
     assert_equal expected, Person.all.to_csv
   end
 
-  test 'it outputs specified values' do
-    Person.create!(id: 1, name: 'sample1')
-    Person.create!(id: 2, name: 'sample2')
+  test "it outputs specified values" do
+    Person.create!(id: 1, name: "sample1")
+    Person.create!(id: 2, name: "sample2")
 
     expected = <<~CSV
       Name
@@ -33,9 +33,9 @@ class CsvSerializerTest < ActiveSupport::TestCase
     assert_equal expected, Person.all.to_csv(:name)
   end
 
-  test 'it outputs from lambda function' do
-    Person.create!(id: 1, name: 'sample1')
-    Person.create!(id: 2, name: 'sample2')
+  test "it outputs from lambda function" do
+    Person.create!(id: 1, name: "sample1")
+    Person.create!(id: 2, name: "sample2")
 
     expected = <<~CSV
       Long name
@@ -55,8 +55,8 @@ class CsvSerializerTest < ActiveSupport::TestCase
     )
   end
 
-  test 'it outputs csv from definition object' do
-    Person.create!(id: 1, name: 'sample1')
+  test "it outputs csv from definition object" do
+    Person.create!(id: 1, name: "sample1")
 
     expected = <<~CSV
       Long name,Long name
@@ -68,21 +68,21 @@ class CsvSerializerTest < ActiveSupport::TestCase
     )
   end
 
-  test 'it translates column name' do
-    Person.create!(id: 1, name: 'sample1')
-    Person.create!(id: 2, name: 'sample2')
+  test "it translates column name" do
+    Person.create!(id: 1, name: "sample1")
+    Person.create!(id: 2, name: "sample2")
 
-    I18n.backend.store_translations(:en, activerecord: { attributes: { person: { name: "Person's Name"} } })
+    I18n.backend.store_translations(:en, activerecord: {attributes: {person: {name: "Person's Name"}}})
     expected = <<~CSV
       Person's Name
       sample1
       sample2
     CSV
     assert_equal expected, Person.all.to_csv(:name)
-    I18n.backend.store_translations(:en, activerecord: { attributes: { person: { name: nil } } })
+    I18n.backend.store_translations(:en, activerecord: {attributes: {person: {name: nil}}})
   end
 
-  test 'it outputs csv2' do
+  test "it outputs csv2" do
     Person.create
     Person.create
 
