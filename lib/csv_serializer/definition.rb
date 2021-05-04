@@ -1,4 +1,5 @@
 module CsvSerializer
+  # Represents definition of csv columns.
   class Definition
     attr_reader :records
 

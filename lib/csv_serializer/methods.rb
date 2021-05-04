@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 module CsvSerializer
+  # Provides methods available on ActiveRecords.
   module Methods
     extend ActiveSupport::Concern
 

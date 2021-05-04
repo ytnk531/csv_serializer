@@ -2,6 +2,7 @@
 require "csv"
 
 module CsvSerializer
+  # Provides functions to generate csv string and file from column definition object.
   class Serializer
     attr_reader :definitions, :records
 
